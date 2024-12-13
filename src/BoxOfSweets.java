@@ -5,6 +5,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class BoxOfSweets implements SweetsContainer {
     private List<Sweet> sweets;
 
+    public double getHighestPriceSweet() {
+        return sweets.stream().mapToDouble(Sweet::getPrice).max().orElse(0);
+    }
+
+    public double getHighestWeightSweet() {
+        return sweets.stream().mapToDouble(Sweet::getWeight).max().orElse(0);
+    }
+
     public BoxOfSweets() {
         this.sweets = new ArrayList<>();
     }
@@ -45,7 +53,7 @@ public class BoxOfSweets implements SweetsContainer {
         Sweet lowestWeightSweet = sweets.get(0);
 
         for (Sweet sweet : sweets) {
-            if (sweet.getPrice() < lowestWeightSweet.getWeight()) {
+            if (sweet.getWeight() < lowestWeightSweet.getWeight()) {
                 lowestWeightSweet = sweet;
             }
         }

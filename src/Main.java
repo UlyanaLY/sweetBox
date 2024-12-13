@@ -180,7 +180,7 @@ public class Main {
         if (box.getTotalPrice() > d) {
             System.out.println("Коробка слишком дорогая. Удаляем самую дешёвую сладость.");
             box.removeLowestPriceSweet();
-            optimizeBoxByWeight(box, d);
+            optimizeBoxByPrice(box, d);
         } else {
             System.out.println("Коробка оптимизирована.");
         }
@@ -203,12 +203,13 @@ public class Main {
                 System.out.println("Введите максимальный вес коробки:");
                 Scanner weight = new Scanner(System.in);
                 double d = weight.nextDouble();
-                if (d < 100){
-                    System.out.println("Вес коробки не может быть меньше или равна 100 граммам.");
+                if (d <= bx.getHighestWeightSweet()){
+                    System.out.println();
+                    System.out.println("Вес коробки не может быть меньше или равен весу самой тяжелой конфеты - " + bx.getHighestWeightSweet() + " .");
                     optimization(bx);
                 }
-                if (d >= bx.getTotalPrice()){
-                    System.out.println("Коробка и так укладывается в ваш бюджет");
+                if (d >= bx.getTotalWeight()){
+                    System.out.println("Коробка и так подходит по весу");
                     optimization(bx);
                 }
                 optimizeBoxByWeight(bx, d);
@@ -218,8 +219,8 @@ public class Main {
                 System.out.println("Введите максимальную цену коробки:");
                 Scanner weight = new Scanner(System.in);
                 double d = weight.nextDouble();
-                if (d < 100){
-                    System.out.println("Цена коробки не может быть меньше или равна 100 рублей.");
+                if (d <= bx.getHighestPriceSweet()){
+                    System.out.println("Цена коробки не может быть меньше или равна цене самой дорогой конфеты - " + bx.getHighestPriceSweet() + " .");
                     optimization(bx);
                 }
                 if (d >= bx.getTotalPrice()){
