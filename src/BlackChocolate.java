@@ -2,7 +2,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class BlackChocolate extends Sweet {
     public BlackChocolate() {
-        super("Тёмный шоколад", 99.00, 99.00, generateUniqueParameter());
+        super("Тёмный шоколад", 98.00, 99.00, generateUniqueParameter());
     }
 
     private static String generateUniqueParameter() {

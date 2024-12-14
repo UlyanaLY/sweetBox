@@ -70,26 +70,26 @@ public class Main {
                 """);
         var chosenBox = new BoxOfSweets();
         try {
-        Scanner input = new Scanner(System.in);
+            Scanner input = new Scanner(System.in);
 
-        int choice = input.nextInt();
-        if (choice == 1) {
-            chosenBox = gift1;
-            chosenBox.displayInformation();
-        } else if (choice == 2) {
-            chosenBox = gift2;
-            chosenBox.displayInformation();
-        } else if (choice == 3) {
-            chosenBox = gift3;
-            chosenBox.displayInformation();
-        } else if (choice == 4) {
-            System.out.println("Создание коробки сладостей");
-            chosenBox = createBox();
-            chosenBox.displayInformation();
-        } else {
-            System.out.println("Вы ввели неверное значение. Пожалуйста, попробуйте еще раз.");
-            createOrChoseBox();
-        }
+            int choice = input.nextInt();
+            if (choice == 1) {
+                chosenBox = gift1;
+                chosenBox.displayInformation();
+            } else if (choice == 2) {
+                chosenBox = gift2;
+                chosenBox.displayInformation();
+            } else if (choice == 3) {
+                chosenBox = gift3;
+                chosenBox.displayInformation();
+            } else if (choice == 4) {
+                System.out.println("Создание коробки сладостей");
+                chosenBox = createBox();
+                chosenBox.displayInformation();
+            } else {
+                System.out.println("Вы ввели неверное значение. Пожалуйста, попробуйте еще раз.");
+                createOrChoseBox();
+            }
         } catch (InputMismatchException e) {
             System.out.println("Вы ввели неверное значение. Пожалуйста, попробуйте еще раз.");
             createOrChoseBox();
@@ -169,18 +169,27 @@ public class Main {
         if (box.getTotalWeight() > d) {
             System.out.println("Коробка слишком тяжелая. Удаляем самую легкую сладость.");
             box.removeLowestWeightSweet();
-            optimizeBoxByWeight(box, d);
+            if (box.isEmpty()) {
+                System.out.println("Коробка пустая");
+                System.exit(0);
+            } else {
+                optimizeBoxByWeight(box, d);
+            }
         } else {
             System.out.println("Коробка оптимизирована.");
         }
     }
 
     public static void optimizeBoxByPrice(BoxOfSweets box, Double d) {
-
         if (box.getTotalPrice() > d) {
             System.out.println("Коробка слишком дорогая. Удаляем самую дешёвую сладость.");
             box.removeLowestPriceSweet();
-            optimizeBoxByPrice(box, d);
+            if (box.isEmpty()) {
+                System.out.println("Коробка пустая");
+                System.exit(0);
+            } else {
+                optimizeBoxByPrice(box, d);
+            }
         } else {
             System.out.println("Коробка оптимизирована.");
         }
@@ -203,12 +212,7 @@ public class Main {
                 System.out.println("Введите максимальный вес коробки:");
                 Scanner weight = new Scanner(System.in);
                 double d = weight.nextDouble();
-                if (d <= bx.getHighestWeightSweet()){
-                    System.out.println();
-                    System.out.println("Вес коробки не может быть меньше или равен весу самой тяжелой конфеты - " + bx.getHighestWeightSweet() + " .");
-                    optimization(bx);
-                }
-                if (d >= bx.getTotalWeight()){
+                if (d >= bx.getTotalWeight()) {
                     System.out.println("Коробка и так подходит по весу");
                     optimization(bx);
                 }
@@ -219,11 +223,7 @@ public class Main {
                 System.out.println("Введите максимальную цену коробки:");
                 Scanner weight = new Scanner(System.in);
                 double d = weight.nextDouble();
-                if (d <= bx.getHighestPriceSweet()){
-                    System.out.println("Цена коробки не может быть меньше или равна цене самой дорогой конфеты - " + bx.getHighestPriceSweet() + " .");
-                    optimization(bx);
-                }
-                if (d >= bx.getTotalPrice()){
+                if (d >= bx.getTotalPrice()) {
                     System.out.println("Коробка и так укладывается в ваш бюджет");
                     optimization(bx);
                 }

@@ -23,6 +23,10 @@ public class BoxOfSweets implements SweetsContainer {
         return this;
     }
 
+    public Boolean isEmpty() {
+        return sweets.isEmpty();
+    }
+
     @Override
     public void removeLowestPriceSweet() {
         if (this.sweets.isEmpty()) {
